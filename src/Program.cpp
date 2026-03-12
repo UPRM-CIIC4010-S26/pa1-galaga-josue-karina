@@ -86,6 +86,9 @@ void Program::Draw() {
     for (Projectile p : Projectile::projectiles) p.draw();
     for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) if (p.second) p.second->draw();
 
+    //New DrawText() for score
+    DrawText(TextFormat("Score: %i", Enemy::score), 10, 10, 20, WHITE);
+
     if (startup) DrawStartup();
     if (paused) DrawPauseScreen();
     if (gameOver) DrawGameOver();
@@ -186,6 +189,7 @@ void Program::PlayerReset() {
 void Program::Reset() {
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;
+    Enemy::score = 0; //New score implementation
     player = new Player((GetScreenWidth() / 2) - 15, GetScreenHeight() * 0.75f);
     respawnCooldown = 1080;
     respawns = 0;
