@@ -36,6 +36,21 @@ void Program::Update() {
 
     if (!startup && !paused && !gameOver && pauseFrames <= 0) {
         Enemy::ManageEnemies(player->hitBox);
+
+        //New if statement for thousandCount
+        int thousandCount = Enemy::score / 1000;
+
+        if(thousandCount > Enemy::livesAdded)
+        {
+            if(lives < 5)
+            {
+                lives++;
+            }
+
+            Enemy::livesAdded++;
+        }
+        //End
+
         StdEnemy::attackReset();
         ManageEnemyRespawns();
         player->update();
@@ -88,6 +103,9 @@ void Program::Draw() {
 
     //New DrawText() for score
     DrawText(TextFormat("Score: %i", Enemy::score), 10, 10, 20, WHITE);
+
+    //New DrawText() for livesAdded
+    DrawText(TextFormat("Lives: %i", lives), 10, 40, 20, WHITE);
 
     if (startup) DrawStartup();
     if (paused) DrawPauseScreen();
@@ -194,6 +212,7 @@ void Program::Reset() {
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;
     Enemy::score = 0; //New score implementation
+    Enemy::livesAdded = 0; //New livesAdded implementation
     player = new Player((GetScreenWidth() / 2) - 15, GetScreenHeight() * 0.75f);
     respawnCooldown = 1080;
     respawns = 0;

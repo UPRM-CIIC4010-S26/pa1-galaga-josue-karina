@@ -23,6 +23,7 @@ class Enemy {
         inline static int directionChange = 100;
         inline static std::vector<std::pair<std::pair<float, float>, Enemy*>> enemies;
         inline static int score = 0;  //New Static Variable for score
+        inline static int livesAdded = 0; //New Static Variable for livesAdded
 
         Enemy() {}
 
