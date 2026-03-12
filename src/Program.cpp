@@ -107,6 +107,9 @@ void Program::Draw() {
     //New DrawText() for livesAdded
     DrawText(TextFormat("Lives: %i", lives), 10, 40, 20, WHITE);
 
+    //New DrawText() for bonusHighScore
+    DrawText(TextFormat("High Score: %i", highScore), 10, 70, 20, LIME);
+
     if (startup) DrawStartup();
     if (paused) DrawPauseScreen();
     if (gameOver) DrawGameOver();
@@ -220,6 +223,14 @@ void Program::PlayerReset() {
 }
 
 void Program::Reset() {
+
+    //New if statement for bonusHighScore
+    if(Enemy::score > highScore)
+    {
+        highScore = Enemy::score;
+    }
+    //End
+
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;
     Enemy::score = 0; //New score implementation
