@@ -116,6 +116,17 @@ void Program::ManageEnemyRespawns() {
     delay = std::max(delay - 1, 0);
 
     respawnCooldown -= 1;
+
+    //New difficultyIncrease implementation
+    int cooldownReduced = Enemy::score / 1500;
+    respawnCooldown -= cooldownReduced;
+
+    if(respawnCooldown < 0)
+    {
+        respawnCooldown = 0;
+    }
+    //End
+
     if (respawnCooldown <= 0) {
         respawnCooldown = 1080;
         for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) {
